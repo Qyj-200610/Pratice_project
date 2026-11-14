@@ -7,22 +7,37 @@ import tempfile
 import zipfile
 
 IMG_EXT = (".jpg", ".jpeg", ".png")
+PARENT_NAMES = {"cat": "cat", "cats": "cat", "dog": "dog", "dogs": "dog"}
 
 
 def collect_images(src):
-
-    found = {"cat": [], "dog": []}
+    """递归收集图片，同时兼容「文件名前缀」和「父目录名」两种类别标注方式。"""
+    by_name = {"cat": [], "dog": []}
+    by_dir = {"cat": [], "dog": []}
+    skipped_empty = 0
     for root, _, files in os.walk(src):
+        parent = os.path.basename(root).lower()
         for f in files:
             if not f.lower().endswith(IMG_EXT):
                 continue
-            cls = f.split(".")[0].lower()
-            if cls in found:
-                found[cls].append(os.path.join(root, f))
-    return found
+            path = os.path.join(root, f)
+            if os.path.getsize(path) == 0:      
+                skipped_empty += 1
+                continue
+            stem = f.split(".")[0].lower()
+            if stem in by_name:
+                by_name[stem].append(path)
+            elif parent in PARENT_NAMES:
+                by_dir[PARENT_NAMES[parent]].append(path)
+    if skipped_empty:
+        print(f"跳过 {skipped_empty} 张 0 字节的损坏图片")
+    if by_name["cat"] or by_name["dog"]:
+        return by_name
+    return by_dir
 
 
 def resolve_source(src):
+    """返回 (可用的图片根目录, 分组结果, 临时目录或 None)。"""
     groups = collect_images(src)
     if groups["cat"] or groups["dog"]:
         return src, groups, None
@@ -41,7 +56,7 @@ def resolve_source(src):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--src", required=True,
-                        help="kagglehub 打印的路径，或含 train.zip 的目录")
+                        help="PetImages 目录（Microsoft）或含 train.zip 的目录（Kaggle）")
     parser.add_argument("--dst", default="data/cats_dogs")
     parser.add_argument("--val-ratio", type=float, default=0.1)
     parser.add_argument("--seed", type=int, default=0)
@@ -60,8 +75,8 @@ def main():
         print(f"找到: cat={len(groups['cat'])}, dog={len(groups['dog'])}")
         if not groups["cat"] or not groups["dog"]:
             raise SystemExit(
-                "没找到 cat.*.jpg / dog.*.jpg。请确认 --src 是 kagglehub 打印的路径，"
-                "或该目录下至少有 train.zip"
+                "没找到猫狗图片。请确认 --src 指向 PetImages 目录"
+                "（里面应有 Cat/、Dog/ 两个子目录），或该目录下至少有 train.zip"
             )
 
         rng = random.Random(args.seed)
