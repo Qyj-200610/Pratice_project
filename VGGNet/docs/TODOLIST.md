@@ -14,7 +14,7 @@
 > 3. **迁移学习**：真实猫狗 24,997 张（微软版），验证集 **top-1 > 95%**。
 > 4. **可视化 + 推理**：TensorBoard 记录 loss / acc / lr；手机实拍猫狗照片推理验证。
 >
-> **外加 DDP 多卡**：代码按多卡规范写，训练/评测在**恒源云 2 卡**上验收。
+> **外加 DDP 多卡**：✅ 已在恒源云 2×RTX 3090 上跑通 8 epoch（best **99.24%**，14.4 分钟，约 **1.78×**）。
 >
 > **环境**：`mmcv-lite`；本机 Windows + RTX 5060 Laptop 8GB 只做单卡，多卡上恒源云。
 > **版本基线**：python 3.12.10 / torch 2.11.0+cu128 / mmpretrain 1.2.0 / mmengine 0.10.7 / mmcv-lite 2.2.0。
@@ -34,7 +34,7 @@
 | 7 | 迁移学习 | [02](02_训练部分.md) | val top-1 **> 95%** |
 | 8 | TensorBoard | [02](02_训练部分.md) | loss / acc / lr 曲线 |
 | 9 | 实拍推理 | [02](02_训练部分.md) | 3 张以上预测正确 |
-| 10 | DDP（恒源云 2 卡） | [02](02_训练部分.md) | 2 卡 8 epoch + 评测 + 结果带回 |
+| 10 | DDP（恒源云 2 卡） | [02](02_训练部分.md) | ✅ 2 卡 8 epoch，best 99.24%，结果已带回 |
 | 11 | README / 交付 | [02](02_训练部分.md) | 证据齐全 |
 
 ---
@@ -76,7 +76,6 @@
 - **11**：`--resume`、`load_from` 指向 mmengine ckpt、`Runner.test()`；都会走 `load_checkpoint → torch.load`。
 
 </details>
-
 
 ---
 

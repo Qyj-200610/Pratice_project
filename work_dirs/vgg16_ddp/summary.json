@@ -1,0 +1,80 @@
+{
+  "work_dir": "D:\\具身智能\\Pratice_project\\work_dirs\\vgg16_ddp",
+  "runs": {
+    "20261115_101936": [
+      {
+        "epoch": 1,
+        "iters": 352,
+        "loss_avg": 0.1282,
+        "sec_per_iter": 0.2425,
+        "lr": 0.0002,
+        "val_top1": 98.96
+      },
+      {
+        "epoch": 2,
+        "iters": 352,
+        "loss_avg": 0.0834,
+        "sec_per_iter": 0.2397,
+        "lr": 0.00019242601348487304,
+        "val_top1": 99.04
+      },
+      {
+        "epoch": 3,
+        "iters": 352,
+        "loss_avg": 0.0853,
+        "sec_per_iter": 0.2397,
+        "lr": 0.0001708571247280615,
+        "val_top1": 99.08
+      },
+      {
+        "epoch": 4,
+        "iters": 352,
+        "loss_avg": 0.0771,
+        "sec_per_iter": 0.2402,
+        "lr": 0.00013857700152032645,
+        "val_top1": 99.2
+      },
+      {
+        "epoch": 5,
+        "iters": 352,
+        "loss_avg": 0.0756,
+        "sec_per_iter": 0.2391,
+        "lr": 0.0001005,
+        "val_top1": 99.2
+      },
+      {
+        "epoch": 6,
+        "iters": 352,
+        "loss_avg": 0.0755,
+        "sec_per_iter": 0.2407,
+        "lr": 6.242299847967357e-05,
+        "val_top1": 99.24
+      },
+      {
+        "epoch": 7,
+        "iters": 352,
+        "loss_avg": 0.0711,
+        "sec_per_iter": 0.2394,
+        "lr": 3.014287527193853e-05,
+        "val_top1": 99.2
+      },
+      {
+        "epoch": 8,
+        "iters": 352,
+        "loss_avg": 0.0734,
+        "sec_per_iter": 0.2393,
+        "lr": 8.573986515126971e-06,
+        "val_top1": 99.24
+      }
+    ]
+  },
+  "best": {
+    "run": "20261115_101936",
+    "epoch": 6,
+    "iters": 352,
+    "loss_avg": 0.0755,
+    "sec_per_iter": 0.2407,
+    "lr": 6.242299847967357e-05,
+    "val_top1": 99.24
+  }
+}
