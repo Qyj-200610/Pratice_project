@@ -19,6 +19,8 @@ eps = 1.0e-5
 
 class BasicBlock(BaseModule):
 
+    expansion = 1
+
     def __init__(self,
                 in_channels,
                 out_channels,
@@ -112,6 +114,8 @@ class BasicBlock(BaseModule):
         return out
 
 class Bottleneck(BaseModule):
+
+    expansion = 4
 
     def __init__(self,
                     in_channels,
