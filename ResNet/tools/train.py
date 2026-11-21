@@ -1,8 +1,15 @@
 
 import argparse
+import os
+import sys
 
-import compat  
-import resnet  
+TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
+RESNET_ROOT = os.path.dirname(TOOLS_DIR)
+if RESNET_ROOT not in sys.path:
+    sys.path.insert(0, RESNET_ROOT)
+
+import compat
+import resnet
 from mmengine.config import Config, DictAction
 from mmengine.runner import Runner
 
